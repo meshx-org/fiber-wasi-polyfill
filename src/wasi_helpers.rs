@@ -1,8 +1,8 @@
-use stable_fs::{
+/*use stable_fs::{
     error::Error,
     fs::{Fd, FileSystem},
     storage::types::DirEntryIndex,
-};
+};*/
 
 #[cfg(target_arch = "wasm32")]
 use crate::wasi;
@@ -18,7 +18,7 @@ pub fn get_file_name<'a>(path: *const u8, path_len: wasi::Size) -> &'a str {
 
 pub const DIRENT_SIZE: usize = std::mem::size_of::<wasi::Dirent>();
 
-#[cfg(not(tarpaulin_include))]
+/*#[cfg(not(tarpaulin_include))]
 pub fn into_errno(error: Error) -> i32 {
     let errno = match error {
         stable_fs::error::Error::NotFound => wasi::ERRNO_NOENT,
@@ -38,18 +38,18 @@ pub fn into_errno(error: Error) -> i32 {
     };
 
     errno.raw() as i32
-}
+}*/
 
-#[cfg(not(tarpaulin_include))]
+/*#[cfg(not(tarpaulin_include))]
 pub fn into_wasi_filetype(file_type: stable_fs::storage::types::FileType) -> wasi::Filetype {
     match file_type {
         stable_fs::storage::types::FileType::Directory => wasi::FILETYPE_DIRECTORY,
         stable_fs::storage::types::FileType::RegularFile => wasi::FILETYPE_REGULAR_FILE,
         stable_fs::storage::types::FileType::SymbolicLink => wasi::FILETYPE_SYMBOLIC_LINK,
     }
-}
+}*/
 
-pub fn _into_stable_fs_filetype(
+/*pub fn _into_stable_fs_filetype(
     file_type: wasi::Filetype,
 ) -> Result<stable_fs::storage::types::FileType, stable_fs::error::Error> {
     match file_type {
@@ -58,9 +58,9 @@ pub fn _into_stable_fs_filetype(
         wasi::FILETYPE_SYMBOLIC_LINK => Ok(stable_fs::storage::types::FileType::SymbolicLink),
         _ => Err(stable_fs::error::Error::InvalidFileType),
     }
-}
+}*/
 
-pub fn fd_readdir(
+/*pub fn fd_readdir(
     fs: &FileSystem,
     fd: i32,
     cookie: i64,
@@ -330,3 +330,4 @@ mod tests {
         assert_eq!(bytes_used, 99);
     }
 }
+*/

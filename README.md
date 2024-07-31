@@ -1,14 +1,14 @@
-# The IC Polyfill library
+# The Fiber Polyfill library
 
 ![Tests](https://github.com/wasm-forge/ic-wasi-polyfill/actions/workflows/rust.yml/badge.svg?event=push)
 [![Coverage](https://codecov.io/gh/wasm-forge/ic-wasi-polyfill/branch/main/graph/badge.svg)](https://codecov.io/gh/wasm-forge/ic-wasi-polyfill/branch/main/)
 
-The project provides polyfill implementation of *wasi_unstable* and *wasi_snapshot_preview1* functions using IC System API.
+The project provides polyfill implementation of *wasi_unstable* and *wasi_snapshot_preview1* functions using Fiber Syscall API.
 
 
 ## Usage
 
-The intended use is to add this library as a dependency to your rust project. And then run `wasi2ic` on the produced Wasm binary.
+The intended use is to add this library as a dependency to your rust project. And then run `wasi2fx` on the produced Wasm binary.
 
 In your project you would need to call the `init` function. It makes sure the linker does not remove the functions and can be used to initialize the random seed and define some environment variables.
 
@@ -24,59 +24,59 @@ Example:
 | Status           | Description                                                  |
 | ---------------- | ------------------------------------------------------------ |
 | Supported        | Function is fully supported.                                 |
-| No-op            | Empty implementation that does nothing but can be called without issues. |
+| Not implemented            | Empty implementation that does nothing but can be called without issues. |
 | Not implemented  | Function is not yet implemented - calling it causes the application to panic. |
 | Not supported    | Function is not planned to be implemented - calling it causes the application to panic. |
 
 
-| WASI function               | Status          | 
-| --------------------------- | --------------- |
-| `args_get`                  | No-op           |
-| `args_sizes_get`            | No-op           |
-| `clock_res_get`             | Supported       |
-| `clock_time_get`            | Supported       |
-| `environ_get`               | Supported       |
-| `environ_sizes_get`         | Supported       |
-| `fd_advise`                 | No-op           |
-| `fd_allocate`               | No-op           |
-| `fd_close`                  | Supported       |
-| `fd_datasync`               | No-op           |
-| `fd_fdstat_get`             | Supported       |
-| `fd_fdstat_set_flags`       | Supported       |
-| `fd_fdstat_set_rights`      | Supported       |
-| `fd_filestat_get`           | Supported       |
-| `fd_filestat_set_size`      | No-op           |
-| `fd_filestat_set_times`     | Supported       |
-| `fd_pread`                  | Supported       |
-| `fd_prestat_dir_name`       | Supported       |
-| `fd_prestat_get`            | Supported       |
-| `fd_pwrite`                 | Supported       |
-| `fd_read`                   | Supported       |
-| `fd_readdir`                | Supported       |
-| `fd_renumber`               | Supported       |
-| `fd_seek`                   | Supported       |
-| `fd_sync`                   | Supported       |
-| `fd_tell`                   | Supported       |
-| `fd_write`                  | Supported       |
-| `path_create_directory`     | Supported       |
-| `path_filestat_get`         | Supported<sup>1</sup>       |
-| `path_filestat_set_times`   | Supported<sup>1</sup>       |
-| `path_link`                 | Supported<sup>1</sup>       |
-| `path_open`                 | Supported<sup>1</sup>       |
-| `path_readlink`             | Not implemented |
-| `path_remove_directory`     | Supported       |
-| `path_rename`               | Supported       |
-| `path_symlink`              | Not implemented |
-| `path_unlink_file`          | Supported       |
-| `poll_oneoff`               | Not implemented |
-| `proc_exit`                 | Supported       |
-| `proc_raise`                | Not implemented |
-| `random_get`                | Supported<sup>2</sup>       |
-| `sched_yield`               | No-op           |
-| `sock_accept`               | Not supported   |
-| `sock_recv`                 | Not supported   |
-| `sock_send`                 | Not supported   |
-| `sock_shutdown`             | Not supported   |
+| WASI function               | Status                | 
+| --------------------------- | ----------------------|
+| `args_get`                  | Not implemented       |
+| `args_sizes_get`            | Not implemented       |
+| `clock_res_get`             | Not implemented       |
+| `clock_time_get`            | Not implemented       |
+| `environ_get`               | Not implemented       |
+| `environ_sizes_get`         | Not implemented       |
+| `fd_advise`                 | Not implemented       |
+| `fd_allocate`               | Not implemented       |
+| `fd_close`                  | Not implemented       |
+| `fd_datasync`               | Not implemented       |
+| `fd_fdstat_get`             | Not implemented       |
+| `fd_fdstat_set_flags`       | Not implemented       |
+| `fd_fdstat_set_rights`      | Not implemented       |
+| `fd_filestat_get`           | Not implemented       |
+| `fd_filestat_set_size`      | Not implemented       |
+| `fd_filestat_set_times`     | Not implemented       |
+| `fd_pread`                  | Not implemented       |
+| `fd_prestat_dir_name`       | Not implemented       |
+| `fd_prestat_get`            | Not implemented       |
+| `fd_pwrite`                 | Not implemented       |
+| `fd_read`                   | Not implemented       |
+| `fd_readdir`                | Not implemented       |
+| `fd_renumber`               | Not implemented       |
+| `fd_seek`                   | Not implemented       |
+| `fd_sync`                   | Not implemented       |
+| `fd_tell`                   | Not implemented       |
+| `fd_write`                  | Not implemented       |
+| `path_create_directory`     | Not implemented       |
+| `path_filestat_get`         | Not implemented       |
+| `path_filestat_set_times`   | Not implemented       |
+| `path_link`                 | Supported<sup>1</sup> |
+| `path_open`                 | Supported<sup>1</sup> |
+| `path_readlink`             | Not implemented       |
+| `path_remove_directory`     | Not implemented       |
+| `path_rename`               | Not implemented       |
+| `path_symlink`              | Not implemented       |
+| `path_unlink_file`          | Not implemented       |
+| `poll_oneoff`               | Not implemented       |
+| `proc_exit`                 | Not implemented       |
+| `proc_raise`                | Not implemented       |
+| `random_get`                | Supported<sup>2</sup> |
+| `sched_yield`               | Not implemented       |
+| `sock_accept`               | Not supported         |
+| `sock_recv`                 | Not supported         |
+| `sock_send`                 | Not supported         |
+| `sock_shutdown`             | Not supported         |
 
 *<sup>1</sup>* - Currently symlinks are not supported by the file system, this affects a few `path_` functions, the `flags` ("follow symlink") parameter is currently ignored.
 
