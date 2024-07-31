@@ -690,6 +690,11 @@ pub unsafe extern "C" fn __fx_custom_environ_sizes_get(
 }
 
 #[no_mangle]
+pub extern "C" fn __fx_init(handle: i32) {
+    panic!("__fx_init called with handle: {handle}");
+}
+
+#[no_mangle]
 pub extern "C" fn __fx_custom_proc_exit(code: i32) -> ! {
     panic!("WASI proc_exit called with code: {code}");
 }
@@ -701,6 +706,7 @@ pub extern "C" fn __fx_custom_args_get(arg_entries: *mut *mut u8, arg_buffer: *m
     debug_instructions!("__fx_custom_args_get -> 0");
 
     prevent_elimination(&[arg_entries as i32, arg_buffer as i32]);
+
     // No-op.
     0
 }
