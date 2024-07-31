@@ -1084,7 +1084,7 @@ pub unsafe extern "C" fn raw_init_seed(seed: *const u8, len: usize) {
 #[no_mangle]
 #[allow(clippy::missing_safety_doc)]
 #[cfg(not(tarpaulin_include))]
-pub unsafe extern "C" fn raw_init(seed: *const u8, len: usize) {
+pub unsafe extern "C" fn raw_init() {
     /*FS.with(|fs| {
         let mut fs = fs.borrow_mut();
 
@@ -1097,7 +1097,7 @@ pub unsafe extern "C" fn raw_init(seed: *const u8, len: usize) {
         }
     });*/
 
-    raw_init_seed(seed, len);
+    // raw_init_seed(seed, len);
 
     COUNTER.with(|var| {
         if *var.borrow() == -1 {
@@ -1187,14 +1187,14 @@ pub unsafe extern "C" fn raw_init(seed: *const u8, len: usize) {
 // Example:
 // init(&[12,3,54,1], &[("PATH", "/usr/bin"), ("UID", "1028"), ("HOME", "/home/user")]);
 #[allow(clippy::missing_safety_doc)]
-pub fn init(seed: &[u8], env_pairs: &[(&str, &str)]) {
+pub fn init() {
     /*ENV.with(|env| {
         let mut env = env.borrow_mut();
         env.set_environment(env_pairs);
     });*/
 
     unsafe {
-        raw_init(seed.as_ptr(), seed.len());
+        raw_init();
     }
 }
 
